@@ -206,7 +206,7 @@ layui.define(function(exports){
     if(Dates.ymd[1]+1 == Dates.mins[1] && Dates.ymd[2] == Dates.mins[2]){
       if(index === 0 && (times < Dates.mins[3])){
         return 1;
-      } else if(index === 1 && times < Dates.mins[4]){
+      } else if(index === 1 && times < Dates.mins[4] && Dates.hmsin[0].value <= Dates.mins[3]){
         return 1;
       } else if(index === 2 && times < Dates.mins[5]){
         return 1;
@@ -446,7 +446,10 @@ layui.define(function(exports){
   //方位辨别
   Dates.orien = function(obj, pos){
     var tops, rect = Dates.elem.getBoundingClientRect();
-    obj.style.left = rect.left + (pos ? 0 : Dates.scroll(1)) + 'px';
+    if(rect.left < $(window).width() - 250)
+      obj.style.left = rect.left + (pos ? 0 : Dates.scroll(1)) + 'px';
+    else
+        obj.style.left = ($(window).width() - 250) + 'px';
     if(rect.bottom + obj.offsetHeight/1.5 <= Dates.winarea()){
       tops = rect.bottom - 1;     
     } else {
